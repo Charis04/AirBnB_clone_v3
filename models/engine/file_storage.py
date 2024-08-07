@@ -65,9 +65,9 @@ class FileStorage:
         If no class is passed, returns the count of all objects in storage.
         """
         if cls is None:
-            return len(self.__objects)
+            return len(self.all())
         count = 0
-        for obj in self.__objects.values():
+        for obj in self.all().values():
             if obj['__class__'] == cls.__name__:
                 count += 1
         return count
