@@ -11,6 +11,7 @@ from api.v1.views import app_views
 
 app.register_blueprint(app_views)
 
+
 @app.teardown_appcontext
 def teardown(exc):
     storage.close()
