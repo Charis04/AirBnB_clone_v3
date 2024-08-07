@@ -72,14 +72,14 @@ class DBStorage:
 
     def count(self, cls=None):
         """
-        Counts and returns the number of objects in a storage matching the given class.
-        If no class is passed, returns the count of all objects in storage.
+        Counts and returns the number of objects in a storage matching the
+        given class. If no class is passed, returns the count of all objects
+        in storage.
         """
-        if cls == None:
+        if cls is None:
             return len(self.__session.query().all())
         objects = self.__session.query(cls).all()
         return len(objects)
-            
 
     def delete(self, obj=None):
         """delete from the current database session obj if not None"""
