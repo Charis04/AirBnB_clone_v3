@@ -9,3 +9,7 @@ from flask import jsonify
 def views():
     """Returns status in json format"""
     return jsonify({"status": "OK"})
+
+@app_views.route('/stats')
+def count():
+    storage.count()

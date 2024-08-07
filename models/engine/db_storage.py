@@ -77,7 +77,10 @@ class DBStorage:
         in storage.
         """
         if cls is None:
-            return len(self.__session.query().all())
+            objs = []
+            for clss in classes:
+                objs += self.__session.query(classes[clss]).all()
+            return len(objs)
         objects = self.__session.query(cls).all()
         return len(objects)
 

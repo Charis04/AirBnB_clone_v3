@@ -69,7 +69,7 @@ class FileStorage:
             return len(self.all())
         count = 0
         for obj in self.all().values():
-            if obj['__class__'] == cls.__name__:
+            if obj.__class__.__name__ == cls.__name__:
                 count += 1
         return count
 
