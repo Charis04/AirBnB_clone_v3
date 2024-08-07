@@ -12,8 +12,14 @@ from models.review import Review
 from models.state import State
 from models.user import User
 
-classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
-           "Place": Place, "Review": Review, "State": State, "User": User}
+classes = {
+    "amenities": Amenity,
+    "cities": City,
+    "places": Place,
+    "reviews": Review,
+    "states": State,
+    "users": User
+    }
 
 
 @app_views.route('/status', methods=['GET'])
@@ -26,5 +32,5 @@ def views():
 def count():
     dict = {}
     for cls in classes:
-        dict[cls.lower()] = storage.count(classes[cls])
+        dict[cls] = storage.count(classes[cls])
     return jsonify(dict)
