@@ -5,6 +5,7 @@ from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models.state import State
 from models import storage
+import json
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
@@ -14,7 +15,7 @@ def get_states():
     states_list = []
     for obj in states:
         states_list.append(states[obj].to_dict())
-    return jsonify(states_list)
+    return json.dumps(states_list, indent=4)
 
 
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
