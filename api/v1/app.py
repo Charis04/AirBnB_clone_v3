@@ -17,7 +17,7 @@ def not_found(error):
 
 @app.errorhandler(400)
 def not_json(error):
-    return "Not a JSON", 400
+    return jsonify({'error': 'Not a JSON'}), 400
 
 
 @app.teardown_appcontext
