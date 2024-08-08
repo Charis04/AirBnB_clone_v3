@@ -9,26 +9,20 @@ from models import storage
 import json
 
 
-@app_views.route('/states/<state_id>/cities', methods=['GET'], strict_slashes=False)
+@app_views.route(
+        '/states/<state_id>/cities', methods=['GET'], strict_slashes=False
+    )
 def get_cities(state_id):
     """Retrieves the list of all cities of a State"""
-    # Get list of state ids
-    state_id_list = [
-        state.to_dict()['id'] for state in storage.all(State).values()
-    ]
-    if state_id not in state_id_list:
+    # Check if state with state_id exists
+    state = storage.get(State, state_id)
+    if not state:
         abort(404)
-    # Get list of city objects converted to dictionaries
-    all_cities = [city.to_dict() for city in storage.all(City).values()]
-    # Get list of cities associated with state_id
-    cities = []
-    for city in all_cities:
-        if 'state_id' in city.keys():
-            if city['state_id'] == state_id:
-                cities.append(city)
+    # Get list of cities associated with state
+    cities = [city.to_dict() for city in state.cities]
     if len(cities) == 0:
         abort(404)
-    return jsonify(cities)
+    return json.dumps(cities, indent=4)
 
 
 @app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
@@ -37,11 +31,13 @@ def get_city(city_id):
     cities = [city.to_dict() for city in storage.all(City).values()]
     for city in cities:
         if city['id'] == city_id:
-            return jsonify(city)
+            return json.dumps(city, indent=4)
     abort(404)
 
 
-@app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
+@app_views.route(
+        '/states/<state_id>/cities', methods=['POST'], strict_slashes=False
+    )
 def create_city(state_id):
     """Creates a city"""
     # Get list of state ids and check if state_id is linked to any state
