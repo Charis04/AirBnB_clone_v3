@@ -15,6 +15,11 @@ def not_found(error):
     return jsonify({'error': 'Not found'}), 404
 
 
+@app.errorhandler(400)
+def not_json(error):
+    return "Not a JSON", 400
+
+
 @app.teardown_appcontext
 def teardown(exc):
     storage.close()

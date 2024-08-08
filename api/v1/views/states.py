@@ -44,7 +44,7 @@ def delete_state(state_id):
 def create_state():
     """Creates a state"""
     if not request.json:
-        return "Not a JSON", 400
+        abort(400)
     if 'name' not in request.json:
         return "Missing name", 400
     state = State(**request.get_json())
@@ -57,7 +57,7 @@ def create_state():
 def update_state(state_id):
     """Updates a state"""
     if not request.json:
-        return "Not a JSON", 400
+        abort(400)
     state = storage.get(State, state_id)
     if state is None:
         abort(404)
