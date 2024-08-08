@@ -12,8 +12,6 @@ import json
 def get_amenities():
     """Retrieves all amenities"""
     amenities = storage.all(Amenity)
-    if not amenities:
-        abort(404)
     amenities_dict = [amenity.to_dict() for amenity in amenities.values()]
     return json.dumps(amenities_dict, indent=4)
 
