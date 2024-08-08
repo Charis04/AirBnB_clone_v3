@@ -2,7 +2,7 @@
 """A view for City objects that handles all default RESTFul API actions:"""
 
 from api.v1.views import app_views
-from flask import jsonify, abort, request
+from flask import abort, request
 from models.city import City
 from models.state import State
 from models import storage
@@ -20,8 +20,6 @@ def get_cities(state_id):
         abort(404)
     # Get list of cities associated with state
     cities = [city.to_dict() for city in state.cities]
-    if len(cities) == 0:
-        abort(404)
     return json.dumps(cities, indent=4)
 
 
