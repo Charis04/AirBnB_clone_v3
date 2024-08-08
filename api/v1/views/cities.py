@@ -28,7 +28,7 @@ def get_cities(state_id):
                 cities.append(city)
     if len(cities) == 0:
         abort(404)
-    return json.dumps(cities, indent=4)
+    return jsonify(cities)
 
 
 @app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
@@ -37,7 +37,7 @@ def get_city(city_id):
     cities = [city.to_dict() for city in storage.all(City).values()]
     for city in cities:
         if city['id'] == city_id:
-            return json.dumps(city, indent=4)
+            return jsonify(city)
     abort(404)
 
 
