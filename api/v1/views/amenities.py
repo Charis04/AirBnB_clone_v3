@@ -23,7 +23,7 @@ def get_amenity(amenity_id):
     """Retrieves an amenity"""
     amenity = storage.get(Amenity, amenity_id)
     if amenity:
-        return json.dumps(amenity, indent=4)
+        return json.dumps(amenity.to_dict(), indent=4)
     abort(404)
 
 
